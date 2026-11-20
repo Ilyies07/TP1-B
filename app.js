@@ -1,7 +1,4 @@
-import {injectElements, renewTag} from "./functions/dom.js";
-
-const wrapper = document.querySelector('#controle')
-
+const wrapper = document.querySelector('#controle');
 
 function start() {
     const etapes = [
@@ -19,6 +16,52 @@ function start() {
     injectElements(etapes, laListe);
 }
 
-document.querySelector('#start').addEventListener('click', start)
+function etape2() {
+    const labelSaisie = createElement("label", { for: "saisie" });
 
+    const saisie = createElement("input", {
+        type: "text",
+        id: "saisie",
+    });
 
+    labelSaisie.innerText = "saisissez le nombre de tasses de café demandé :";
+
+    wrapper.prepend(saisie);
+    wrapper.prepend(labelSaisie);
+
+    const bouton = document.querySelector('#start');
+    bouton.innerText = "Calculer";
+
+    bouton.removeEventListener('click', start);
+    bouton.addEventListener('click', calculEtape2);
+}
+
+function calculEtape2() {
+    const resultat = [
+        { ingredient: 'eau', quantity: 0, message: ' ml d\'eau' },
+        { ingredient: 'cafe', quantity: 0, message: ' g de grains de café' },
+        { ingredient: 'lait', quantity: 0, message: ' ml de lait' },
+    ];
+
+    const nombresDeTasses = document.querySelector('#saisie').value * 1;
+    const { ingredients } = recettes.find((nom) => nom.title === 'Cafe');
+
+    for (const nomIngredient in ingredients) {
+        resultat.find((element) => {
+            if (element.ingredient === nomIngredient) {
+                element.quantity = nombresDeTasses * ingredients[nomIngredient];
+            }
+        });
+    }
+
+    const laListe = renewTag('ul');
+    wrapper.append(laListe);
+
+    for (const ligne of resultat) {
+        const li = createElement('li');
+        li.innerText = `${ligne.quantity}${ligne.message}`;
+        laListe.append(li);
+    }
+}
+
+etape2();

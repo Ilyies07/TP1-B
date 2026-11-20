@@ -5,7 +5,6 @@
  * @property {number} duree
  */
 
-
 /**
  *
  * @param {string} tagName
@@ -17,7 +16,6 @@ export function createElement(tagName, attributes = {}) {
     for (const [attribute, value] of Object.entries(attributes)) {
         element.setAttribute(attribute, value)
     }
-
     return element
 }
 
