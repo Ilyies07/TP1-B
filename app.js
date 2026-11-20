@@ -54,6 +54,10 @@ function calculEtape2() {
         });
     }
 
+    function calculEtape3() {
+        const [eauDispo, laitDispo, cafeDispo, tassesDemandees] = document.querySelector('#saisie')
+    }
+
     const laListe = renewTag('ul');
     wrapper.append(laListe);
 
